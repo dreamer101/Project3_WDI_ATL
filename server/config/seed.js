@@ -7,7 +7,42 @@
 
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
+var Vendor = require('../api/vendor/vendor.model');
 
+Vendor.find().remove(function() {
+  Vendor.create(
+    {
+      username: 'Bruce',
+      name: 'Bruce',
+      category: 'Photography',
+      location: { street: '123 Lakewood', city: 'Atlanta' , state: 'GA' },
+      type: 'Parrot',
+      description: 'Nice',
+      email: 'Bruce@aol.com',
+      stars: 0,
+      imageFile: ''
+    },
+    {
+      username: 'Larry',
+      name: 'Larry',
+      category: 'Photography',
+      location: { street: '123 Lakewood', city: 'Atlanta' , state: 'GA' },
+      type: 'Parrot',
+      description: 'Nice',
+      email: 'Larry@aol.com',
+      stars: 0,
+      imageFile: ''
+    },
+
+    function() {
+      Vendor.find(function (err, vendors) {
+        if (err) { console.log(err); }
+        else { console.log('finished ' + vendors.length + 'vendors');
+        }
+      });
+    }
+  );
+});
 Thing.find({}).remove(function() {
   Thing.create({
     name : 'Development Tools',
