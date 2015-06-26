@@ -6,10 +6,11 @@ angular.module('project3App')
     var that = this;
 
     that.findVendorById = function(id) {
-      var vendorId = parseInt(id);
-      return _.find(that.inventory, function(item) {
-        return item._id;
-      });
+     return $http.get('api/vendors/' + id);
+    };
+
+    that.getVendors = function() {
+      return $http.get('/api/vendors');
     };
 
   });

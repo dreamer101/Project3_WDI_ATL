@@ -5,7 +5,9 @@
 
 * ran `yo angular-fullstack:endpoint vendor` (note: singular)
 
-*changed the vendor schema, the location object syntax I got from the internet, but not sure how we'd use later this given that the street is a String. changed function to 'category' for now b/c I thought JS might treat it differently b/c it's 'function'
+* changed the vendor schema, the location object syntax I got from the internet, but not sure how we'd use later this given that the street is a String. changed function to 'category' for now b/c I thought JS might treat it differently b/c it's 'function'
+
+* need to add 'cart service' or service to connect w/ vendor
 
 
   
