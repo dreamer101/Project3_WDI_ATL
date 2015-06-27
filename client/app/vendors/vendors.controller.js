@@ -1,5 +1,6 @@
 'use strict';
 
+var that = this;
 angular.module('project3App')
   .controller('VendorsCtrl', function ($state, vendorService) {
 
@@ -7,6 +8,6 @@ angular.module('project3App')
 
     vendorService.getVendors().then(function(json) {
       that.inventory = json.data;
-    })
+    });
 
   });
