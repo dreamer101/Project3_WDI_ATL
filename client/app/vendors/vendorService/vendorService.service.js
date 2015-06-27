@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('project3App')
-  .service('vendorService', function () {
+  .service('vendorService', function ($http) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     var that = this;
 
