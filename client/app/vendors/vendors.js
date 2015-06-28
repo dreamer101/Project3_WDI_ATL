@@ -6,6 +6,6 @@ angular.module('project3App')
       .state('vendors', {
         url: '/vendors',
         templateUrl: 'app/vendors/vendors.html',
-        controller: 'VendorsCtrl'
+        controller: 'VendorsCtrl as ctrl'
       });
   });

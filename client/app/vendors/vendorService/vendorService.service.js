@@ -5,9 +5,6 @@
 //     // AngularJS will instantiate a singleton by calling "new" on this function
 //     var that = this;
 
-//     that.findVendorById = function(id) {
-//      return $http.get('api/vendors/' + id);
-//     };
 
 //     that.getVendors = function() {
 //       return $http.get('/api/vendors');
@@ -33,6 +30,13 @@ angular.module('project3App')
       return vendor._id === parseInt(vendorId);
     });
   };
+    that.findVendorById = function(id) {
+     return $http.get('api/vendors/' + id);
+    };
+
+     that.getVendors = function() {
+      return $http.get('/api/vendors');
+    };
 
   that.inventory = [
   {

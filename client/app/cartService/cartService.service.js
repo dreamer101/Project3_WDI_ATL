@@ -1,41 +1,46 @@
 'use strict';
 
 angular.module('project3App')
-  .service('cartService', function () {
+  .service('cartService', function ($http, Auth) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
-var that = this;
+  var that = this;
 
   that.cart = [];
 
-  function findItemById(items, id) {
-    return _.find(items, function(item) {
-      return item._id === id;
+  function findVendorbyId(vendors, id) {
+    return _.find(vendors, function(vendor) {
+      return vendor._id === id;
     });
-  }
+  };
 
-  that.addItem = function(item) {
-    var found = findItemById(that.cart, item._id);
+    that.getCart = function() {
+    var userId = Auth.getCurrentUser()._id;
+    return $http.get('/api/users/' + userId + '/cart/');
+  };
+
+    that.addVendor = function(vendor) {
+    var found = findVendorById(that.cart, vendor._id);
     if (found) {
-      found.qty += item.qty;
+      found.qty += vendor.qty;
     }
     else {
-      that.cart.push(angular.copy(item));
+      that.cart.push(angular.copy(vendor));
     }
   };
 
-  that.removeItem = function(item) {
-    var index = that.cart.indexOf(item);
+  that.removeVendor = function(vendor) {
+    var index = that.cart.indexOf(vendor);
     that.cart.splice(index, 1);
   };
 
-  that.getCost = function(item) {
-    return item.qty * item.price;
+  that.getCost = function(vendor) {
+    return vendor.qty * vendor.price;
   };
 
   that.getTotal = function() {
-    return _.reduce(that.cart, function(sum, item) {
-      return sum + that.getCost(item);
+    return _.reduce(that.cart, function(sum, vendor) {
+      return sum + that.getCost(vendor);
     }, 0);
   };
 

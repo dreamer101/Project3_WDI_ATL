@@ -2,7 +2,7 @@
 'use strict';
 
 angular.module('project3App')
-.filter('itemFilter', function () {
+.filter('vendorFilter', function () {
   function isMatch(str, pattern) {
     return str.toLowerCase().indexOf(pattern.toLowerCase()) !== -1;
   }

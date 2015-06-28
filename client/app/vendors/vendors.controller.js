@@ -1,45 +1,69 @@
-
-    // vendorService.getVendors().then(function(json) {
-      // that.inventory = json.data;
-    // });
-
-  // });
-
-
-
-
 'use strict';
 
-var that = this;
 angular.module('project3App')
-  .controller('VendorsCtrl', function ($state, vendorService) {
+.controller('VendorsCtrl', function($state, vendorService, cartService) {
 
-  this.searchText = '';
-  this.inventory = vendorService.inventory;
-  this.cart = cartService.cart;
+  var that = this;
 
-  this.addVendor = function(vendor) {
-    vendorService.addVendor(Vendor);
+  that.searchText = '';
+  that.total = 0;
+
+  that.getInventory = function() {
+    vendorService.getVendors().then(function(json) {
+      that.inventory = json.data;
+    });
+  };
+  cartService.getCart().then(function(json) {
+    that.cart = json.data;
+    that.total = cartService.getTotal(that.cart);
+  });
+
+
+that.addVendor = function(vendor) {
+    cartService.addVendor(vendor).then(function(json) {
+      that.cart = json.data;
+      that.total = cartService.getTotal(that.cart);
+    }, function(err) {
+      console.log('ERROR: addVendor post: ' + JSON.stringify(err));
+    });
   };
 
-  this.removeVendor = function(vendor) {
-    vendorService.removeVendor(Vendor);
+  that.removeVendor = function(vendor) {
+    cartService.removeVendor(vendor).then(function(json) {
+      that.cart = json.data;
+      that.total = cartService.getTotal(that.cart);
+    }, function(err) {
+      console.log('ERROR: removeVendor delete: ' + JSON.stringify(err));
+    });
   };
 
-  this.getCost = function(vendor) {
-    return vendorService.getCost(Vendor);
+  that.getCost = function(vendor) {
+    return cartService.getCost(vendor);
   };
 
-  this.getTotal = function() {
-    return vendorService.getTotal();
+  that.clearCart = function() {
+    return cartService.clearCart().then(function(json) {
+      that.cart = json.data;
+      that.total = cartService.getTotal(that.cart);
+    }, function(err) {
+      console.log('clearCart delete ERROR: ' + JSON.stringify(err));
+    });
   };
 
-  this.clearCart = function() {
-    return vendorService.clearCart();
+  that.goVendor = function (vendor) {
+    $state.go( 'vendorDetail', { vendorId : vendor._id } );
   };
 
-  this.goVendor = function (vendor) {
-    console.log('goVendor: ' + vendor_id);
-    $state.go( 'itemDetail', { vendorId : vendor._id } );
-  };
 });
+
+
+
+
+
+
+
+
+
+
+
+
