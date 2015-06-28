@@ -1,11 +1,3 @@
-'use strict';
-
-angular.module('project3App')
-  .filter('itemFilter', function () {
-    return function (input) {
-      return 'itemFilter filter: ' + input;
-    };
-  });
 
 'use strict';
 
